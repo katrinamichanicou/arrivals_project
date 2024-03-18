@@ -1,3 +1,5 @@
+// No longer required : Superseded by api.go
+
 package flights
 
 import (

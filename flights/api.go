@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"time"
 )
 
 type FlightDataAPI struct {
@@ -27,19 +26,6 @@ type Origin struct {
 	Code string `json:"code_iata"`
 }
 
-func (flight FlightsAPI) ParseTime(input string) string {
-	parsedTime, err := time.Parse(time.RFC3339, input)
-	if err != nil {
-		fmt.Errorf("error: %w", err)
-	}
-	return parsedTime.Format("15:04")
-}
-
-func (flight FlightsAPI) CheckTime(input string) bool {
-	_, err := time.Parse(time.RFC3339, input)
-	return err == nil
-}
-
 func ReadJSONFromOnlineAPI() (FlightDataAPI, error) {
 	url := "https://aeroapi.flightaware.com/aeroapi/airports/LHR/flights/arrivals"
 	password := os.Getenv("API_KEY")
@@ -58,15 +44,7 @@ func ReadJSONFromOnlineAPI() (FlightDataAPI, error) {
 	defer resp.Body.Close()
 	byteValue, _ := io.ReadAll(resp.Body)
 	var flightData FlightDataAPI
-	// fmt.Println("Response Body:", string(byteValue))
 	json.Unmarshal(byteValue, &flightData)
-
-	// if err := json.NewDecoder(resp.Body).Decode(&flightData); err != nil {
-	// 	return FlightDataJSON{}, fmt.Errorf("error decoding JSON: %v", err)
-	// }
-	// fmt.Println(flightData)
-	// fmt.Println("Response Status:", resp.Status)
-	// fmt.Println("Response Headers:", resp.Header)
 
 	return flightData, nil
 }
