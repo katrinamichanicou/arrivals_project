@@ -18,49 +18,26 @@ type FlightsAPI struct {
 	Airline   string `json:"operator_iata"`
 	FlightNum string `json:"flight_number"`
 	Cancelled bool   `json:"cancelled"`
-	DueTime   string `json:"scheduled_in"`
-	ExpTime   string `json:"estimated_in"`
-	ArrTime   string `json:"actual_in"`
+	DueTime   string `json:"scheduled_on"`
+	ExpTime   string `json:"estimated_on"`
+	ArrTime   string `json:"actual_on"`
 }
 
 type Origin struct {
-	Code string `json:"code"`
+	Code string `json:"code_iata"`
 }
 
-type NullableTime struct {
-	Time  *time.Time
-	Valid bool
-}
-
-func (flight FlightsAPI) ParseTime(input string) time.Time {
+func (flight FlightsAPI) ParseTime(input string) string {
 	parsedTime, err := time.Parse(time.RFC3339, input)
 	if err != nil {
-		fmt.Errorf("%v", err)
+		fmt.Errorf("error: %w", err)
 	}
-	return parsedTime
+	return parsedTime.Format("15:04")
 }
 
 func (flight FlightsAPI) CheckTime(input string) bool {
 	_, err := time.Parse(time.RFC3339, input)
 	return err == nil
-}
-
-func HandleBlankTime(input string) NullableTime {
-	// str := strings.Trim(string(input), `"`)
-	fmt.Println(input)
-	if input == "" {
-		return NullableTime{Valid: false}
-	}
-
-	parsedTime, err := time.Parse(time.RFC3339, input)
-	if err != nil {
-		return NullableTime{Valid: false}
-	}
-
-	return NullableTime{
-		Time:  &parsedTime,
-		Valid: true,
-	}
 }
 
 func ReadJSONFromOnlineAPI() (FlightDataAPI, error) {

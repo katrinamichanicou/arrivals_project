@@ -21,16 +21,16 @@ func main() {
 		// flightsBoard.Display().Print()
 		flightsBoard.DisplayAPIData().Print()
 	} else {
-		// filter := os.Args[1]
+		filter := os.Args[1]
 		// FlightData, err := flights.ReadFromJSON("flightData.json")
 		// FlightData, err := flights.ReadJSONFromAPI()
-		// FlightData, err := flights.ReadJSONFromOnlineAPI()
-		// if err != nil {
-		// fmt.Println("JSON file not found")
-		// }
-		// flightsBoard := board.NewBoard(FlightData)
+		FlightData, err := flights.ReadJSONFromOnlineAPI()
+		if err != nil {
+			fmt.Println("JSON file not found")
+		}
+		flightsBoard := board.NewBoard(FlightData)
 
 		// flightsBoard.DisplayWithFilter(filter).Print()
-		// flightsBoard.DisplayAPIData().Print()
+		flightsBoard.DisplayAPIDataWithFilter(filter).Print()
 	}
 }
