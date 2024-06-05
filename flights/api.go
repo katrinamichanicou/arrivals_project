@@ -36,8 +36,10 @@ func ReadJSONFromOnlineAPI() (FlightDataAPI, error) {
     if err != nil {
         log.Fatal("Error loading .env file")
     }
+	
+	airport := "LHR"
 
-	url := "https://aeroapi.flightaware.com/aeroapi/airports/LHR/flights/arrivals"
+	url := fmt.Sprintf("https://aeroapi.flightaware.com/aeroapi/airports/%s/flights/arrivals",airport)
 	api_key := os.Getenv("API_KEY")
 	client := &http.Client{}
 
