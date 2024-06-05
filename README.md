@@ -1,4 +1,6 @@
-## Arrivals Board
+# Arrivals Board
+
+## Description
 
 The Arrivals Board was my first project using Golang. It has been built entirely using Go using the terminal as the interface.
 When the main.go file is run in terminal a table appears with recent arrivals into London Heathrow Airport.
@@ -10,8 +12,7 @@ flights/api.go : line 40
 airport := "LHR"
 ```
 
-
-### Goal:
+### Goals:
 
 It is worth noting that the main goal of this project was to practice using the Go project structure as well as connecting to and utilising api data in Go.
 Additional features, such as the table formatting and filtering were added to further expand my skills with Go. 
@@ -24,11 +25,11 @@ Create a live, updating arrivals board in terminal using Go, with the following 
 4. Automatically clear and update the terminal with up to date data at 1 minute intervals
 
 
-### QuickStart
+## QuickStart
 
-1. In order to run this program you must have Go installed (link to download here >> https://go.dev/dl/).
+1. In order to run this program you must have Go installed, link to download here -> [go.dev](https://go.dev/dl/).
 
-2. Open terminal in your project and run:
+2. Open terminal and your project directory and run:
    ```
    go mod tidy
    ```
@@ -45,4 +46,7 @@ Create a live, updating arrivals board in terminal using Go, with the following 
    ```
    go run main.go
    ```
-   
+
+
+## Reflections
+For a detailed reflection on this project, including challenges faced, and future improvements, please see the [reflections.md](reflections.md) file.
