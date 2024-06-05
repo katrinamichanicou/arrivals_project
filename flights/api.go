@@ -1,3 +1,5 @@
+// Connects to flight arrivals api and formats the response
+
 package flights
 
 import (
@@ -6,6 +8,9 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"log"
+   
+	"github.com/joho/godotenv"
 )
 
 type FlightDataAPI struct {
@@ -27,15 +32,20 @@ type Origin struct {
 }
 
 func ReadJSONFromOnlineAPI() (FlightDataAPI, error) {
+	err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
 	url := "https://aeroapi.flightaware.com/aeroapi/airports/LHR/flights/arrivals"
-	password := os.Getenv("API_KEY")
+	api_key := os.Getenv("API_KEY")
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return FlightDataAPI{}, fmt.Errorf("error creating request: %v", err)
 	}
-	req.Header.Set("x-apikey", password)
+	req.Header.Set("x-apikey", api_key)
 
 	resp, err := client.Do(req)
 	if err != nil {

@@ -1,4 +1,5 @@
 // No longer required : Superseded by api.go
+// Kept only as part of the project progression history for reference
 
 package flights
 
